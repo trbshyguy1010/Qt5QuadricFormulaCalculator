@@ -87,24 +87,25 @@ class Ui_QuadricFormulaCalculator(object):
             self.status.setText("values not specified")
             pass
     def calculatebtnevent(self):
+        num1 = int(self.lineEdit_6.text())
+        num2 = int(self.lineEdit_2.text())
+        num3 = int(self.lineEdit_3.text())
+        deltA = num2 ** 2 - 4 * (num1 * num3)
         try:
-            num1 = int(self.lineEdit_6.text())
-            num2 = int(self.lineEdit_2.text())
-            num3 = int(self.lineEdit_3.text())
-            deltA = num2 ** 2 - 4 * num1 * num3
             if deltA > 0:
                 global x
                 x = 2 * num1
-                Qfxp = round(((-num2) - math.sqrt(deltA)) / x)
-                Qfxs = round(((-num2) + math.sqrt(deltA)) / x)
+                Qfxp = ((-num2) - math.sqrt(deltA)) / x
+                Qfxs = ((-num2) + math.sqrt(deltA)) / x
                 self.lineEdit_4.setText(str(Qfxp))
                 self.lineEdit_5.setText(str(Qfxs))
                 self.status.setText("2 solutions")
             elif deltA == 0:
-                Qfx = round((-num2) / x)
+                x = 2 * num1
+                Qfx = (-num2) / x
                 self.lineEdit_4.setText(str(Qfx))
                 self.status.setText("1 solution")
-            elif deltA < 0:
+            else:
                 self.status.setText("No solutions")
         except (NameError, AttributeError, ValueError):
             self.status.setText("values not specified")
